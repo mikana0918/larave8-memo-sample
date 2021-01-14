@@ -26,6 +26,5 @@ class NoteTest extends TestCase
         $first = Note::first(); //最初のモデルを取得
 
         $this->assertEquals($persisted->id, $first->id);
-
     }
 }
