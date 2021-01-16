@@ -1,12 +1,14 @@
-## 環境
+## Environment / 環境
 docker / docker-compose
 
-## プロジェクトセットアップ
+## Setup / プロジェクトセットアップ
+git clone https://github.com/mikana0918/larave8-memo-sample.git
+cd laravel8-memo-sample
 docker-compose up -d
 
 composerのセットアップetc不要です
 
-## 開発環境URL
+## Dev URL / 開発環境URL
 localhost
 
 
