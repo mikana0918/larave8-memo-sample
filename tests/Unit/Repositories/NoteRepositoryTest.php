@@ -59,7 +59,7 @@ class NoteRepositoryTest extends TestCase
 
     // 更新: 新規作成したモデルを配列にシリアライズ
     $upsert = $this->repo->upsert($params);
-    dd($upsert->toArray());
+
     // 保存成功すればNoteモデルを返却  
     $this->assertInstanceOf(Note::class, $upsert);
     // upsertして返却されたnote_contents = アップデートパラメータ note_contents
