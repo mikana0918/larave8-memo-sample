@@ -1,15 +1,20 @@
 ## Environment / 環境
+```
 docker / docker-compose
+```
 
 ## Setup / プロジェクトセットアップ
-git clone https://github.com/mikana0918/larave8-memo-sample.git
-cd laravel8-memo-sample
-docker-compose up -d
-
+```
+git clone https://github.com/mikana0918/larave8-memo-sample.git  
+cd laravel8-memo-sample  
+docker-compose up -d  
+```
 composerのセットアップetc不要です
 
 ## Dev URL / 開発環境URL
+```
 localhost
+```
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
