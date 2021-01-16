@@ -4,21 +4,59 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Repositories\NoteRepository;
 
 class NoteController extends Controller
-{
-    public function list(): JsonResponse
+{    
+    /**
+     * @var NoteRepository
+     */
+    private $noteRepository;
+        
+    /**
+     * @param  NoteRepository $noteRepository
+     */
+    public function __construct(NoteRepository $noteRepository)
     {
-        return response()->json('メモの一覧がここに入る');
+        $this->noteRepository = $noteRepository;
+    }
+    
+    /**
+     * GET メモの一覧
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function list(Request $request): JsonResponse
+    {
+        return response()->json(
+            $this->noteRepository->list()
+        );
     }
 
-    public function save(): JsonResponse
+    /**
+     * POST メモの保存
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function save(Request $request): JsonResponse
     {
-        return response()->json('メモの保存・アップデートの完了');
+        return response()->json(
+            $this->noteRepository->upsert($request->all())
+        );
     }
 
-    public function destroy(): JsonResponse
+    /**
+     * DELETE メモの削除
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function destroy(Request $request): JsonResponse
     {
-        return response()->json('メモの削除');
+        return response()->json(
+            $this->noteRepository->destroy($request->id)
+        );
     }
 }
