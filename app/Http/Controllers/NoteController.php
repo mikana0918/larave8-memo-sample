@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Repositories\NoteRepository;
+use App\Http\Requests\NoteRequest;
 
 class NoteController extends Controller
 {    
@@ -40,7 +41,7 @@ class NoteController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function save(Request $request): JsonResponse
+    public function save(NoteRequest $request): JsonResponse
     {
         return response()->json(
             $this->noteRepository->upsert($request->all())
@@ -53,7 +54,7 @@ class NoteController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function destroy(Request $request): JsonResponse
+    public function destroy(NoteRequest $request): JsonResponse
     {
         return response()->json(
             $this->noteRepository->destroy($request->id)
