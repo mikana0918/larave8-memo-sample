@@ -57,11 +57,12 @@ class NoteRepositoryTest extends TestCase
       'note_contents' => 'fuga'
     ];
 
-    // 更新: 新規作成したモデルを配列にシリアライズ
+    // 更新: 成功すればNoteモデルを返却  
     $upsert = $this->repo->upsert($params);
 
-    // 保存成功すればNoteモデルを返却  
+    // 実際にNoteモデルが返却されているか
     $this->assertInstanceOf(Note::class, $upsert);
+
     // upsertして返却されたnote_contents = アップデートパラメータ note_contents
     $this->assertEquals(
       $params['note_contents'], 
@@ -82,10 +83,10 @@ class NoteRepositoryTest extends TestCase
       'note_contents' => 'hogehogehogehoge'
     ];
 
-    // 更新: 新規作成したモデルを配列にシリアライズ
+    // 新規作成: 成功すればNoteモデルを返却  
     $upsert = $this->repo->upsert($params);
 
-    // 保存成功すればNoteを返却  
+    // 実際にNoteモデルが返却されているか
     $this->assertInstanceOf(Note::class, $upsert);
   }
 
