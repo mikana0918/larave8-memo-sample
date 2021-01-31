@@ -1910,6 +1910,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1924,17 +1968,17 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Halcyon Days',
         artist: 'Ellie Goulding'
       }],
-      notes: [] //noteのデータを格納するarray型の空データを置く
-
+      notes: [],
+      //noteのデータを格納するarray型の空データを置く
+      dialog: false,
+      note: {
+        id: 0,
+        note_contents: ''
+      }
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    this.axios.get('/api/note').then(function (response) {
-      console.log(response.data);
-      _this.notes = response.data; // ここでdataのnotesにノートの一覧データを入れる
-    });
+    this.read();
   },
   methods: {
     // Item.idが偶数の場合とそれ以外(奇数)で、背景色を変えてみる
@@ -1944,6 +1988,25 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return '#952175';
       }
+    },
+    // [API]読み込み
+    read: function read() {
+      var _this = this;
+
+      this.axios.get('/api/note').then(function (response) {
+        console.log(response.data);
+        _this.notes = response.data; // ここでdataのnotesにノートの一覧データを入れる
+      });
+    },
+    // [API]新規作成
+    create: function create(note) {
+      //1. 保存
+      this.axios.post('/api/note', note).then(function (response) {
+        console.log(response.data);
+        alert('メモの保存が成功しました');
+      }); //2. リロード
+
+      location.reload();
     }
   }
 });
@@ -19928,124 +19991,245 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-card",
-    { staticClass: "mx-auto", attrs: { "max-width": "100%" } },
+    "v-app",
     [
       _c(
-        "v-app-bar",
-        { attrs: { dark: "", color: "pink", fixed: "" } },
-        [
-          _c("v-app-bar-nav-icon"),
-          _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("サンプルアプリ")]),
-          _vm._v(" "),
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            { attrs: { icon: "" } },
-            [_c("v-icon", [_vm._v("mdi-plus")])],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-container",
-        { staticStyle: { "margin-top": "56px" } },
+        "v-card",
+        { staticClass: "mx-auto", attrs: { "max-width": "100%" } },
         [
           _c(
-            "v-row",
-            { attrs: { dense: "" } },
+            "v-app-bar",
+            { attrs: { dark: "", fixed: "" } },
             [
+              _c("v-app-bar-nav-icon"),
+              _vm._v(" "),
+              _c("v-toolbar-title", [_vm._v("サンプルアプリ")]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
               _c(
-                "v-col",
-                { attrs: { cols: "12" } },
+                "v-dialog",
+                {
+                  attrs: {
+                    fullscreen: "",
+                    "hide-overlay": "",
+                    transition: "dialog-bottom-transition"
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "activator",
+                      fn: function(ref) {
+                        var on = ref.on
+                        var attrs = ref.attrs
+                        return [
+                          _c(
+                            "v-btn",
+                            _vm._g(
+                              _vm._b(
+                                { attrs: { icon: "" } },
+                                "v-btn",
+                                attrs,
+                                false
+                              ),
+                              on
+                            ),
+                            [_c("v-icon", [_vm._v("mdi-plus")])],
+                            1
+                          )
+                        ]
+                      }
+                    }
+                  ]),
+                  model: {
+                    value: _vm.dialog,
+                    callback: function($$v) {
+                      _vm.dialog = $$v
+                    },
+                    expression: "dialog"
+                  }
+                },
                 [
+                  _vm._v(" "),
                   _c(
                     "v-card",
-                    { attrs: { color: "#385F73", dark: "" } },
                     [
-                      _c("v-card-title", { staticClass: "headline" }, [
-                        _vm._v("\n            サンプルメモアプリ\n          ")
-                      ]),
+                      _c(
+                        "v-toolbar",
+                        { attrs: { dark: "", color: "primary" } },
+                        [
+                          _c("v-toolbar-title", [_vm._v("新規作成")]),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { icon: "", dark: "" },
+                              on: {
+                                click: function($event) {
+                                  _vm.dialog = false
+                                }
+                              }
+                            },
+                            [_c("v-icon", [_vm._v("mdi-close")])],
+                            1
+                          )
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _c("v-card-subtitle", [
-                        _vm._v("ここではメモの追加と削除ができます")
-                      ])
+                      _c(
+                        "v-form",
+                        [
+                          _c(
+                            "v-container",
+                            [
+                              _c("v-textarea", {
+                                attrs: {
+                                  counter: "140",
+                                  hint: "メモ内容を入力",
+                                  label: "メモ"
+                                },
+                                model: {
+                                  value: _vm.note.note_contents,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.note, "note_contents", $$v)
+                                  },
+                                  expression: "note.note_contents"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { elevation: "2" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.create(_vm.note)
+                                    }
+                                  }
+                                },
+                                [_vm._v("作成")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.notes, function(note, i) {
-                return _c(
-                  "v-col",
-                  { key: i, attrs: { cols: "12" } },
-                  [
-                    _c(
-                      "v-card",
-                      {
-                        attrs: { color: _vm.colorizeByItemId(note), dark: "" }
-                      },
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-container",
+            { staticStyle: { "margin-top": "56px" } },
+            [
+              _c(
+                "v-row",
+                { attrs: { dense: "" } },
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [
+                      _c(
+                        "v-card",
+                        { attrs: { color: "#385F73", dark: "" } },
+                        [
+                          _c("v-card-title", { staticClass: "headline" }, [
+                            _vm._v(
+                              "\n                サンプルメモアプリ\n              "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("v-card-subtitle", [
+                            _vm._v("ここではメモの追加と削除ができます")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.notes, function(note, i) {
+                    return _c(
+                      "v-col",
+                      { key: i, attrs: { cols: "12" } },
                       [
                         _c(
-                          "div",
+                          "v-card",
                           {
-                            staticClass:
-                              "d-flex flex-no-wrap justify-space-between"
+                            attrs: {
+                              color: _vm.colorizeByItemId(note),
+                              dark: ""
+                            }
                           },
                           [
                             _c(
                               "div",
+                              {
+                                staticClass:
+                                  "d-flex flex-no-wrap justify-space-between"
+                              },
                               [
-                                _c("v-card-title", {
-                                  staticClass: "headline",
-                                  domProps: {
-                                    textContent: _vm._s(note.note_contents)
-                                  }
-                                }),
+                                _c(
+                                  "div",
+                                  [
+                                    _c("v-card-title", {
+                                      staticClass: "headline",
+                                      domProps: {
+                                        textContent: _vm._s(note.note_contents)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-card-subtitle", {
+                                      domProps: {
+                                        textContent: _vm._s(note.updated_at)
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
                                 _vm._v(" "),
-                                _c("v-card-subtitle", {
-                                  domProps: {
-                                    textContent: _vm._s(note.updated_at)
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-card-actions",
-                              [
-                                _c("v-btn", { attrs: { text: "" } }, [
-                                  _vm._v(
-                                    "\n                編集\n              "
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("v-btn", { attrs: { text: "" } }, [
-                                  _vm._v(
-                                    "\n                削除\n              "
-                                  )
-                                ])
+                                _c(
+                                  "v-card-actions",
+                                  [
+                                    _c("v-btn", { attrs: { text: "" } }, [
+                                      _vm._v(
+                                        "\n                    編集\n                  "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("v-btn", { attrs: { text: "" } }, [
+                                      _vm._v(
+                                        "\n                    削除\n                  "
+                                      )
+                                    ])
+                                  ],
+                                  1
+                                )
                               ],
                               1
                             )
-                          ],
-                          1
+                          ]
                         )
-                      ]
+                      ],
+                      1
                     )
-                  ],
-                  1
-                )
-              })
+                  })
+                ],
+                2
+              )
             ],
-            2
+            1
           )
         ],
         1
