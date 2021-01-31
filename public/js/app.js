@@ -1941,33 +1941,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      items: [{
-        color: '#1F7087',
-        src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
-        title: 'Supermodel',
-        artist: 'Foster the People'
-      }, {
-        color: '#952175',
-        src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
-        title: 'Halcyon Days',
-        artist: 'Ellie Goulding'
-      }],
       notes: [],
       //noteのデータを格納するarray型の空データを置く
       dialog: false,
@@ -1984,9 +1960,9 @@ __webpack_require__.r(__webpack_exports__);
     // Item.idが偶数の場合とそれ以外(奇数)で、背景色を変えてみる
     colorizeByItemId: function colorizeByItemId(note) {
       if (note.id % 2 === 0) {
-        return '#1F7087';
+        return '#1858D9';
       } else {
-        return '#952175';
+        return '#132A59';
       }
     },
     // [API]読み込み
@@ -20134,99 +20110,63 @@ var render = function() {
               _c(
                 "v-row",
                 { attrs: { dense: "" } },
-                [
-                  _c(
+                _vm._l(_vm.notes, function(note, i) {
+                  return _c(
                     "v-col",
-                    { attrs: { cols: "12" } },
+                    { key: i, attrs: { cols: "12" } },
                     [
                       _c(
                         "v-card",
-                        { attrs: { color: "#385F73", dark: "" } },
+                        {
+                          attrs: { color: _vm.colorizeByItemId(note), dark: "" }
+                        },
                         [
-                          _c("v-card-title", { staticClass: "headline" }, [
-                            _vm._v(
-                              "\n                サンプルメモアプリ\n              "
-                            )
-                          ]),
+                          _c(
+                            "v-system-bar",
+                            { attrs: { window: "", color: "primary" } },
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c("v-icon", [_vm._v("mdi-close")])
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
-                          _c("v-card-subtitle", [
-                            _vm._v("ここではメモの追加と削除ができます")
-                          ])
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "d-flex flex-no-wrap justify-space-between"
+                            },
+                            [
+                              _c(
+                                "div",
+                                [
+                                  _c("v-card-title", {
+                                    staticClass: "headline",
+                                    domProps: {
+                                      textContent: _vm._s(note.note_contents)
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-card-subtitle", {
+                                    domProps: {
+                                      textContent: _vm._s(note.updated_at)
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ]
+                          )
                         ],
                         1
                       )
                     ],
                     1
-                  ),
-                  _vm._v(" "),
-                  _vm._l(_vm.notes, function(note, i) {
-                    return _c(
-                      "v-col",
-                      { key: i, attrs: { cols: "12" } },
-                      [
-                        _c(
-                          "v-card",
-                          {
-                            attrs: {
-                              color: _vm.colorizeByItemId(note),
-                              dark: ""
-                            }
-                          },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "d-flex flex-no-wrap justify-space-between"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  [
-                                    _c("v-card-title", {
-                                      staticClass: "headline",
-                                      domProps: {
-                                        textContent: _vm._s(note.note_contents)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("v-card-subtitle", {
-                                      domProps: {
-                                        textContent: _vm._s(note.updated_at)
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-card-actions",
-                                  [
-                                    _c("v-btn", { attrs: { text: "" } }, [
-                                      _vm._v(
-                                        "\n                    編集\n                  "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("v-btn", { attrs: { text: "" } }, [
-                                      _vm._v(
-                                        "\n                    削除\n                  "
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  })
-                ],
-                2
+                  )
+                }),
+                1
               )
             ],
             1
