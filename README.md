@@ -2,6 +2,19 @@
 
 <p align="center"><img src="https://raku-noma.site/wp-content/uploads/2021/01/%E3%83%A1%E3%83%A2%E3%82%A2%E3%83%95%E3%82%9A%E3%83%AA.gif"/></p>
 
+## Keywords / キーワード
+```
+Laravel8
+Repositoryを経由したEloquent ORMとModelの分離 / PHPUnitの連携 / PHPUnitによるUnit・Featureテスト / Laravel8準拠のFactory
+ 
+Vue.js 
+Vuetifyを利用したモダンなUI / リアクティブに編集可能なUI（モーダル） / AxiosによるAPI疎通 / Vue-routerによる簡易SPA /
+webpackの設定
+
+Docker
+公式docker設定を用いたLaravelプロジェクト作成
+
+```
 ## Environment / 環境
 ```
 docker / docker-compose
