@@ -1910,54 +1910,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1983,6 +1935,16 @@ __webpack_require__.r(__webpack_exports__);
       console.log(response.data);
       _this.notes = response.data; // ここでdataのnotesにノートの一覧データを入れる
     });
+  },
+  methods: {
+    // Item.idが偶数の場合とそれ以外(奇数)で、背景色を変えてみる
+    colorizeByItemId: function colorizeByItemId(note) {
+      if (note.id % 2 === 0) {
+        return '#1F7087';
+      } else {
+        return '#952175';
+      }
+    }
   }
 });
 
@@ -19970,23 +19932,8 @@ var render = function() {
     { staticClass: "mx-auto", attrs: { "max-width": "100%" } },
     [
       _c(
-        "v-system-bar",
-        { attrs: { color: "pink darken-2", dark: "" } },
-        [
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c("v-icon", [_vm._v("mdi-window-minimize")]),
-          _vm._v(" "),
-          _c("v-icon", [_vm._v("mdi-window-maximize")]),
-          _vm._v(" "),
-          _c("v-icon", [_vm._v("mdi-close")])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
         "v-app-bar",
-        { attrs: { dark: "", color: "pink" } },
+        { attrs: { dark: "", color: "pink", fixed: "" } },
         [
           _c("v-app-bar-nav-icon"),
           _vm._v(" "),
@@ -19997,7 +19944,7 @@ var render = function() {
           _c(
             "v-btn",
             { attrs: { icon: "" } },
-            [_c("v-icon", [_vm._v("mdi-magnify")])],
+            [_c("v-icon", [_vm._v("mdi-plus")])],
             1
           )
         ],
@@ -20006,6 +19953,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-container",
+        { staticStyle: { "margin-top": "56px" } },
         [
           _c(
             "v-row",
@@ -20020,24 +19968,12 @@ var render = function() {
                     { attrs: { color: "#385F73", dark: "" } },
                     [
                       _c("v-card-title", { staticClass: "headline" }, [
-                        _vm._v("\n            Unlimited music now\n          ")
+                        _vm._v("\n            サンプルメモアプリ\n          ")
                       ]),
                       _vm._v(" "),
                       _c("v-card-subtitle", [
-                        _vm._v(
-                          "Listen to your favorite artists and albums whenever and wherever, online and offline."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
-                          _c("v-btn", { attrs: { text: "" } }, [
-                            _vm._v("\n              Listen Now\n            ")
-                          ])
-                        ],
-                        1
-                      )
+                        _vm._v("ここではメモの追加と削除ができます")
+                      ])
                     ],
                     1
                   )
@@ -20045,86 +19981,65 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._l(_vm.items, function(item, i) {
+              _vm._l(_vm.notes, function(note, i) {
                 return _c(
                   "v-col",
                   { key: i, attrs: { cols: "12" } },
                   [
-                    _c("v-card", { attrs: { color: item.color, dark: "" } }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex flex-no-wrap justify-space-between"
-                        },
-                        [
-                          _c(
-                            "div",
-                            [
-                              _c("v-card-title", {
-                                staticClass: "headline",
-                                domProps: { textContent: _vm._s(item.title) }
-                              }),
-                              _vm._v(" "),
-                              _c("v-card-subtitle", {
-                                domProps: { textContent: _vm._s(item.artist) }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "v-card-actions",
-                                [
-                                  item.artist === "Ellie Goulding"
-                                    ? _c(
-                                        "v-btn",
-                                        {
-                                          staticClass: "ml-2 mt-3",
-                                          attrs: {
-                                            fab: "",
-                                            icon: "",
-                                            height: "40px",
-                                            right: "",
-                                            width: "40px"
-                                          }
-                                        },
-                                        [_c("v-icon", [_vm._v("mdi-play")])],
-                                        1
-                                      )
-                                    : _c(
-                                        "v-btn",
-                                        {
-                                          staticClass: "ml-2 mt-5",
-                                          attrs: {
-                                            outlined: "",
-                                            rounded: "",
-                                            small: ""
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  START RADIO\n                "
-                                          )
-                                        ]
-                                      )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-avatar",
-                            {
-                              staticClass: "ma-3",
-                              attrs: { size: "125", tile: "" }
-                            },
-                            [_c("v-img", { attrs: { src: item.src } })],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ])
+                    _c(
+                      "v-card",
+                      {
+                        attrs: { color: _vm.colorizeByItemId(note), dark: "" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-flex flex-no-wrap justify-space-between"
+                          },
+                          [
+                            _c(
+                              "div",
+                              [
+                                _c("v-card-title", {
+                                  staticClass: "headline",
+                                  domProps: {
+                                    textContent: _vm._s(note.note_contents)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("v-card-subtitle", {
+                                  domProps: {
+                                    textContent: _vm._s(note.updated_at)
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-card-actions",
+                              [
+                                _c("v-btn", { attrs: { text: "" } }, [
+                                  _vm._v(
+                                    "\n                編集\n              "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("v-btn", { attrs: { text: "" } }, [
+                                  _vm._v(
+                                    "\n                削除\n              "
+                                  )
+                                ])
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    )
                   ],
                   1
                 )

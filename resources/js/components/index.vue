@@ -3,36 +3,20 @@
     max-width="100%"
     class="mx-auto"
   >
-    <v-system-bar
-      color="pink darken-2"
-      dark
-    >
-      <v-spacer></v-spacer>
-
-      <v-icon>mdi-window-minimize</v-icon>
-
-      <v-icon>mdi-window-maximize</v-icon>
-
-      <v-icon>mdi-close</v-icon>
-    </v-system-bar>
-
     <v-app-bar
       dark
       color="pink"
+      fixed
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
       <v-toolbar-title>サンプルアプリ</v-toolbar-title>
-
       <v-spacer></v-spacer>
-
       <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+        <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-app-bar>
 
-
-    <v-container>
+    <v-container style="margin-top: 56px;">
       <v-row dense>
         <v-col cols="12">
           <v-card
@@ -40,69 +24,37 @@
             dark
           >
             <v-card-title class="headline">
-              Unlimited music now
+              サンプルメモアプリ
             </v-card-title>
-
-            <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text>
-                Listen Now
-              </v-btn>
-            </v-card-actions>
+            <v-card-subtitle>ここではメモの追加と削除ができます</v-card-subtitle>
           </v-card>
         </v-col>
 
         <v-col
-          v-for="(item, i) in items"
+          v-for="(note, i) in notes"
           :key="i"
           cols="12"
         >
           <v-card
-            :color="item.color"
+            :color="colorizeByItemId(note)"
             dark
           >
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
                 <v-card-title
                   class="headline"
-                  v-text="item.title"
+                  v-text="note.note_contents"
                 ></v-card-title>
-
-                <v-card-subtitle v-text="item.artist"></v-card-subtitle>
-
-                <v-card-actions>
-                  <v-btn
-                    v-if="item.artist === 'Ellie Goulding'"
-                    class="ml-2 mt-3"
-                    fab
-                    icon
-                    height="40px"
-                    right
-                    width="40px"
-                  >
-                    <v-icon>mdi-play</v-icon>
-                  </v-btn>
-
-                  <v-btn
-                    v-else
-                    class="ml-2 mt-5"
-                    outlined
-                    rounded
-                    small
-                  >
-                    START RADIO
-                  </v-btn>
-                </v-card-actions>
+                <v-card-subtitle v-text="note.updated_at"></v-card-subtitle>
               </div>
-
-              <v-avatar
-                class="ma-3"
-                size="125"
-                tile
-              >
-                <v-img :src="item.src"></v-img>
-              </v-avatar>
+              <v-card-actions>
+                <v-btn text>
+                  編集
+                </v-btn>
+                <v-btn text>
+                  削除
+                </v-btn>
+              </v-card-actions>
             </div>
           </v-card>
         </v-col>
@@ -136,5 +88,15 @@
         this.notes = response.data // ここでdataのnotesにノートの一覧データを入れる
       })
     },
+    methods: {
+      // Item.idが偶数の場合とそれ以外(奇数)で、背景色を変えてみる
+      colorizeByItemId(note) {
+        if(note.id % 2 === 0 ) {
+          return '#1F7087'
+        } else {
+          return '#952175'
+        }
+      }
+    }
   }
 </script>
