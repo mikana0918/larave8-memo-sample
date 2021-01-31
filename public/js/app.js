@@ -1947,6 +1947,7 @@ __webpack_require__.r(__webpack_exports__);
       notes: [],
       //noteのデータを格納するarray型の空データを置く
       dialog: false,
+      dialogUpdate: false,
       note: {
         id: 0,
         note_contents: ''
@@ -1954,6 +1955,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    // APIデータ読み込み
     this.read();
   },
   methods: {
@@ -1974,15 +1976,40 @@ __webpack_require__.r(__webpack_exports__);
         _this.notes = response.data; // ここでdataのnotesにノートの一覧データを入れる
       });
     },
-    // [API]新規作成
-    create: function create(note) {
+    // [API]保存
+    save: function save(note) {
       //1. 保存
       this.axios.post('/api/note', note).then(function (response) {
         console.log(response.data);
         alert('メモの保存が成功しました');
-      }); //2. リロード
+      }); // 2. リロード
 
-      location.reload();
+      location.reload(); // 3. 編集用データ初期化
+
+      this.note.id = 0;
+      this.note.note_contents = '';
+    },
+    // [API]削除
+    destroy: function destroy(note) {
+      if (confirm('本当に削除してもいいですか？')) {
+        //axiosのDELETEメソッドはデータの渡し方が異なる(実際はPOSTでもOK)
+        this.axios["delete"]('/api/note', {
+          data: {
+            id: note.id
+          }
+        }).then(function (response) {
+          console.log(response.data);
+          alert('メモの削除に成功しました');
+        }).then(function () {
+          location.reload();
+        });
+      }
+    },
+    // モーダルをアップデートで開くときの処理
+    openUpdateModal: function openUpdateModal(note) {
+      this.note = note;
+      this.dialog = true;
+      return;
     }
   }
 });
@@ -20033,7 +20060,7 @@ var render = function() {
                         "v-toolbar",
                         { attrs: { dark: "", color: "primary" } },
                         [
-                          _c("v-toolbar-title", [_vm._v("新規作成")]),
+                          _c("v-toolbar-title", [_vm._v("メモの編集・保存")]),
                           _vm._v(" "),
                           _c("v-spacer"),
                           _vm._v(" "),
@@ -20081,11 +20108,11 @@ var render = function() {
                                   attrs: { elevation: "2" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.create(_vm.note)
+                                      return _vm.save(_vm.note)
                                     }
                                   }
                                 },
-                                [_vm._v("作成")]
+                                [_vm._v("保存")]
                               )
                             ],
                             1
@@ -20127,7 +20154,17 @@ var render = function() {
                             [
                               _c("v-spacer"),
                               _vm._v(" "),
-                              _c("v-icon", [_vm._v("mdi-close")])
+                              _c(
+                                "v-icon",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.destroy(note)
+                                    }
+                                  }
+                                },
+                                [_vm._v("mdi-close")]
+                              )
                             ],
                             1
                           ),
@@ -20136,7 +20173,12 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "d-flex flex-no-wrap justify-space-between"
+                                "d-flex flex-no-wrap justify-space-between",
+                              on: {
+                                click: function($event) {
+                                  return _vm.openUpdateModal(note)
+                                }
+                              }
                             },
                             [
                               _c(

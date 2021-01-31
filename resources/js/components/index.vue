@@ -31,7 +31,7 @@
                 dark
                 color="primary"
               >
-                <v-toolbar-title>新規作成</v-toolbar-title>
+                <v-toolbar-title>メモの編集・保存</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn
                   icon
@@ -51,8 +51,8 @@
                   ></v-textarea>
                   <v-btn
                     elevation="2"
-                    @click="create(note)"
-                  >作成</v-btn>
+                    @click="save(note)"
+                  >保存</v-btn>
                 </v-container>
               </v-form>
             </v-card>
@@ -75,17 +75,17 @@
                   color="primary"
                 >
                   <v-spacer></v-spacer>
-                  <v-icon>mdi-close</v-icon>
+                  <v-icon @click="destroy(note)">mdi-close</v-icon>
                 </v-system-bar>
-                <div class="d-flex flex-no-wrap justify-space-between">
-                  <div>
-                    <v-card-title
-                      class="headline"
-                      v-text="note.note_contents"
-                    ></v-card-title>
-                    <v-card-subtitle v-text="note.updated_at"></v-card-subtitle>
-                  </div>
-                </div>
+                    <div class="d-flex flex-no-wrap justify-space-between" @click="openUpdateModal(note)">
+                        <div>
+                          <v-card-title
+                            class="headline"
+                            v-text="note.note_contents"
+                          ></v-card-title>
+                          <v-card-subtitle v-text="note.updated_at"></v-card-subtitle>
+                        </div>
+                    </div>
               </v-card>
             </v-col>
           </v-row>
@@ -99,12 +99,14 @@
     data: () => ({
       notes: [], //noteのデータを格納するarray型の空データを置く
       dialog: false,
+      dialogUpdate: false,
       note: {
         id: 0,
         note_contents: ''
       }
     }),
     mounted() {
+      // APIデータ読み込み
       this.read()
     },
     methods: {
@@ -123,15 +125,36 @@
           this.notes = response.data // ここでdataのnotesにノートの一覧データを入れる
         })
       },
-      // [API]新規作成
-      create(note) {
+      // [API]保存
+      save(note) {
         //1. 保存
         this.axios.post('/api/note', note).then((response) => {
           console.log(response.data)
           alert('メモの保存が成功しました')
         })
-        //2. リロード
+        // 2. リロード
         location.reload()
+        // 3. 編集用データ初期化
+        this.note.id = 0
+        this.note.note_contents = ''
+      },
+      // [API]削除
+      destroy(note) {
+        if(confirm('本当に削除してもいいですか？')) {
+          //axiosのDELETEメソッドはデータの渡し方が異なる(実際はPOSTでもOK)
+          this.axios.delete('/api/note', {data: {id: note.id}}).then((response) => {
+            console.log(response.data)
+            alert('メモの削除に成功しました')
+          }).then(() => {
+            location.reload()
+          })
+        }
+      },
+      // モーダルをアップデートで開くときの処理
+      openUpdateModal(note) {
+        this.note = note
+        this.dialog = true
+        return
       }
     }
   }
