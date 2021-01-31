@@ -1,3 +1,7 @@
+# Laravel x Vue.js x Vuetify x Dockerで作るメモアプリ
+
+<p align="center"><img src="https://raku-noma.site/wp-content/uploads/2021/01/%E3%83%A1%E3%83%A2%E3%82%A2%E3%83%95%E3%82%9A%E3%83%AA.gif"/></p>
+
 ## Environment / 環境
 ```
 docker / docker-compose
