@@ -1,6 +1,7 @@
 require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import vuetify from './plugins/vuetify'
 
 Vue.use(VueRouter)
 
@@ -13,5 +14,6 @@ const router = new VueRouter({
 
 const app = new Vue({
   el: '#app',
-  router
+  router,
+  vuetify
 })
