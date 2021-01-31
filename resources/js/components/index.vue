@@ -1,6 +1,6 @@
 <template>
   <v-card
-    max-width="400"
+    max-width="100%"
     class="mx-auto"
   >
     <v-system-bar
@@ -22,7 +22,7 @@
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>My Music</v-toolbar-title>
+      <v-toolbar-title>サンプルアプリ</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -30,6 +30,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
+
 
     <v-container>
       <v-row dense>
@@ -127,6 +128,13 @@
           artist: 'Ellie Goulding',
         },
       ],
+      notes: [] //noteのデータを格納するarray型の空データを置く
     }),
+    mounted() {
+      this.axios.get('/api/note').then((response) => {
+        console.log(response.data)
+        this.notes = response.data // ここでdataのnotesにノートの一覧データを入れる
+      })
+    },
   }
 </script>
