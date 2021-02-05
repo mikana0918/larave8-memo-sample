@@ -12,6 +12,8 @@ jobs:
     - name: run phptunit on Docker container
       run: |
         php -v
+        pwd
+        ls
         docker-compose up -d
         composer install
         docker-compose exec -T laravel.test bash -c "vendor/bin/phpunit"
