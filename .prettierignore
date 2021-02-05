@@ -1,0 +1,21 @@
+# Ignore artifacts:
+build
+coverage
+
+# buildfiles
+node_modules
+vendor
+
+# tmpfiles
+phpunit.result.cache
+
+# minifiedfiles
+public/css
+public/js
+
+# minifestfiles
+public/mix-manifest.json
+
+# lockfiles
+composer.lock
+package-lock.json
