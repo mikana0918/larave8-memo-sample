@@ -5,18 +5,13 @@ on: [push]
 jobs:
   test:
     name: test with phpunit
-
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
-
-    - name: Run test suite
-      run: composer run-script test
+    - name: run phptunit on Docker container
+      run: |
+        php -v
+        docker-compose up -d
+        composer install
+        docker-compose exec -T laravel.test bash -c "vendor/bin/phpunit"
