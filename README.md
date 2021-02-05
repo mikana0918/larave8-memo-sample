@@ -1,13 +1,14 @@
-# Laravel x Vue.js x Vuetify x Dockerで作るメモアプリ
+# Laravel x Vue.js x Vuetify x Docker で作るメモアプリ
 
 <p align="center"><img src="https://raku-noma.site/wp-content/uploads/2021/01/%E3%83%A1%E3%83%A2%E3%82%A2%E3%83%95%E3%82%9A%E3%83%AA.gif"/></p>
 
 ## Keywords / キーワード
+
 ```
 Laravel8
 Repositoryを経由したEloquent ORMとModelの分離 / PHPUnitの連携 / PHPUnitによるUnit・Featureテスト / Laravel8準拠のFactory
- 
-Vue.js 
+
+Vue.js
 Vuetifyを利用したモダンなUI / リアクティブに編集可能なUI（モーダル） / AxiosによるAPI疎通 / Vue-routerによる簡易SPA /
 webpackの設定
 
@@ -15,30 +16,37 @@ Docker
 公式docker設定を用いたLaravelプロジェクト作成
 
 ```
+
 ## Environment / 環境
+
 ```
 docker / docker-compose
 node.js
 ```
 
 ## Setup / プロジェクトセットアップ
-```
-git clone https://github.com/mikana0918/larave8-memo-sample.git  
-cd laravel8-memo-sample  
-docker-compose up -d  
-```
-composerのセットアップetc不要です
 
-## Dev URL / 開発環境URL
+```
+git clone https://github.com/mikana0918/larave8-memo-sample.git
+cd laravel8-memo-sample
+docker-compose up -d
+```
+
+composer のセットアップ etc 不要です
+
+## Dev URL / 開発環境 URL
+
 ```
 localhost
 ```
-## For Local Frontend Dev / ローカル開発環境でのフロントエンド構築手順  
+
+## For Local Frontend Dev / ローカル開発環境でのフロントエンド構築手順
+
 プロジェクトディレクトリ./で
+
 ```
 npm i && npm run watch
 ```
-
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
