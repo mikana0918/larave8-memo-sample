@@ -4,16 +4,18 @@ on: [push]
 
 jobs:
   test:
-    name: test with phpunit
+    name: Test With PHPUnit
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout Repository
       uses: actions/checkout@v2
-    - name: run phptunit on Docker container
-      run: |
-        php -v
-        pwd
-        ls
-        docker-compose up -d
-        composer install
-        docker-compose exec -T laravel.test bash -c "vendor/bin/phpunit"
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+    - name: Generate key
+      run: php artisan key:generate
+    - name: Up Docker Container
+      run: ./vendor/bin/sail up
+    - name: Run Tests
+      run: docker-compose exec laravel.test php artisan test

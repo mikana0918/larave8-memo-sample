@@ -15,6 +15,12 @@ webpackの設定
 Docker
 公式docker設定を用いたLaravelプロジェクト作成
 
+Tools / DevEnv
+prettierによるコード自動整形
+
+CI/CD
+GithubActionsによるPHPUnit自動実行
+
 ```
 
 ## Environment / 環境
